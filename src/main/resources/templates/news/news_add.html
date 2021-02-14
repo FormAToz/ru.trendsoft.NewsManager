@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Добавление новости</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+<div class="d-flex justify-content-center align-items-center container mt-2">
+    <nav class="nav nav-pills nav-fill">
+        <a class="nav-item nav-link active" th:href="@{/}">Вернуться на главную</a>
+    </nav>
+</div>
+<div class="d-flex justify-content-center align-items-center container">
+    <div class="row text-center">
+        <div class="my-2 p-2 bg-white rounded shadow-sm">
+            <div class="jumbotron d-flex align-items-center">
+                <div class="form-block">
+
+                    <form class="container" action="/news/add" method="post">
+                        <h1 class="h3 mb-3 font-weight-normal">Добавление новости:</h1>
+
+                        <div class="form-inline mt-4">
+                            <input type="text" name="name" class="form-control" placeholder="Заголовок новости" required>
+                        </div>
+
+                        <textarea name="content" class="form-control mt-4" placeholder="Содержание" required></textarea>
+
+                        <div class="form-inline mt-4">
+                            <select id="categorySelect"  name="category" class="form-control" required>
+                                <option value="" hidden>Выберите категорию</option>
+                                <option th:each="el : ${categoryNames}"><span th:text="${el}"/></option>
+                            </select>
+                        </div>
+
+                        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Добавить новость</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

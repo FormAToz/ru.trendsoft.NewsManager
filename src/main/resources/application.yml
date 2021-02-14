@@ -1,0 +1,17 @@
+#spring properties
+spring:
+  jpa:
+    generate-ddl: false
+    show-sql: false
+    hibernate:
+      ddl-auto: validate
+
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/news_manager_db
+    username: postgres
+    password: 123
+
+#flywaydb properties
+flyway:
+  baselineOnMigrate: true

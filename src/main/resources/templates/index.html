@@ -1,0 +1,71 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Лента новостей</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+</head>
+<body>
+
+<main role="main" class="container">
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <div class="media text-muted pt-3">
+            <h3 class="text-black lh-100 ml-2 mb-3"><strong class="text-gray-dark">Портал управления лентой новостей</strong></h3>
+        </div>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <form class="container" action="/news/add" method="get">
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Добавить новость</button>
+        </form>
+    </div>
+
+    <div class="my-3 p-3 bg-white rounded shadow-sm">
+        <div class="media text-muted pt-3">
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray">
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <form class="container" action="/" method="get">
+                        <select id="categorySearch" name="category" class="form-control" required>
+                            <option value="all">Все категории</option>
+                            <option th:each="el : ${categoryNames}"><span th:text="${el}"/></option>
+                        </select>
+                        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Поиск по категории</button>
+                    </form>
+
+                    <form class="container" action="/news/search" method="get">
+                        <input type="text" name="query" class="form-control" placeholder="Заголовок новости" required>
+                        <button class="btn btn-lg btn-primary btn-block mt-4" type="submit">Поиск по тексту</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div th:each="el : ${news}" class="media text-muted pt-3 ">
+            <div class="media-body pb-3 mb-0 small lh-125 border-bottom border-gray text-wrap" style="width: 6rem;">
+                <h6><span class="badge badge-light"><span th:text="${el.category.name}"/></span></h6>
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <h3><strong class="text-gray-dark"><span th:text="${el.name}"/></strong></h3>
+                    <h6><span th:text="${#temporals.format(el.date, 'yyyy-MM-dd HH:mm')}"></span></h6>
+                </div>
+
+                <div class="d-flex justify-content-between align-items-center w-100">
+                    <h5><strong class="text-gray-dark">
+                        <span class="badge badge-info text-wrap"><span th:text="${el.content}"/></span></strong>
+                    </h5>
+                </div>
+
+                <div class="form-group row ml-0 mt-4">
+                    <a th:href="'/news/edit/' + ${el.id}" class="btn btn-light mr-3">Редактировать</a>
+
+                    <form th:action="'/news/delete/' + ${el.id}" method="post">
+                        <button class="btn btn-light" type="submit">Удалить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+</body>
+</html>
